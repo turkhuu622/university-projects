@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subways of Budapest</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="main-menu" class="bold">
+        <h1>Subways of Budapest</h1>
+        <input type="button" value="Start Game" id="start-game-button" class="bold">
+        <input type="button" value="Rules" id="rules-button" class="bold">
+    </div>
+    <div id="enter-name" class="bold">
+        <span>Enter your name</span>
+        <input type="text" id="enter-name-input" class="bold" required>
+        <div>
+            <input type="button" value="Back" class="back-button bold">
+            <input type="button" value="Go" id="go-button" class="bold">
+        </div>
+    </div>
+    <div id="game-screen" class="bold">
+        <div id="player">
+            <span>Player</span>
+            <span id="player-name"></span>
+        </div>
+        <div id="timer">
+            <span>Elapsed time</span>
+            <span id="elapsed-time">00:00</span>
+        </div>
+        <div id="card">
+            <div id="current-card">
+                <span>Current card</span>
+                <img src="images/switch_card.png" alt="">
+                <img src="images/station_a.png" alt="">
+            </div>
+            <div id="side-platform-count">
+                <span>Side</span>
+                <span>platform</span>
+            </div>
+            <div id="central-platform-count">
+                <span>Central</span>
+                <span>platform</span>
+            </div>
+            <div>
+                <input type="button" id="draw-card-button" value=" ">
+                <span>Draw next card</span>
+            </div>
+        </div>
+        <div id="rounds">
+            <span>Round order</span>
+            <div>
+                <input type="button" id="end-round-button" value=" ">
+                <span>End round</span>
+            </div>
+        </div>
+        <div id="score-sheet">
+            <table></table>
+            <div id="symbols-1"><span>x</span><span>x</span><span>x</span><span>x</span></div>
+            <div id="symbols-2"><span>+</span><span>+</span><span>+</span><span>+</span></div>
+            <div id="symbols-3"><span>=</span><span>=</span><span>=</span><span>=</span></div>
+            <div id="symbols-4"><span>+</span><span>+</span><span>+</span><span>=</span><span>+</span><span>+</span></div>
+            <div id="symbols-5"><span>x</span><span>x</span><span>x</span></div>
+            <div id="symbols-6"><span>=</span><span>=</span><span>=</span></div>
+            <div id="symbols-7"><span>+</span><span>+</span><span>=</span><span>=</span></div>
+            <span id="total-score"></span>
+            <table id="train-score"></table>
+            <img src="images/score/train.png" alt="">
+            <img src="images/score/triangle.png" alt="">
+        </div>
+        <table id="board"></table>
+        <canvas height="800" width="800"></canvas>
+    </div>
+    <div id="rules">
+        <input type="button" value="Back" class="back-button bold">
+        <h1>Controls</h1><br>
+        Draw a segment by first clicking on a station which is one of the endpoints of the line and then click on an another station which will be the other endpoint of the segment extending from the previously chosen station.<br><br>
+        Player name, timer, current card, number of already drawn side/central platform cards, round order and scores of the finished rounds are shown on the right side of the game screen. Current round is the one that is colored.<br><br>
+        Press <span class="bold">space</span> to draw the next card and <span class="bold">press F</span> to end the current round.<br><br>
+        <h1>Game Description</h1><br>
+        The game consists of four rounds, each consisting of several turns, during which the player builds one metro line (M1/yellow, M2/red, M3/blue, M4/green). The order of the rounds is random.<br><br>
+        To build metro segments, you draw station cards that can show the letter A, B, C, D, or a Joker symbol (and one card with a Switch symbol, this is for extra points, explained later). The letters indicate which station type you can extend your current metro line to.<br><br>
+        The map is a 10×10 grid. Four of these are highlighted — the starting stations for each metro line. Each station has a letter type (A, B, C, D), except for the station with ID 30 (Deák tér), which is a Joker station — it has no letter type; or in other words, it counts as all letters. At the beginning of the game, no metro line segments are drawn on the map yet.<br><br>
+        There are two types of station cards - central platform and side platform. If five cards of the same type have been revealed, that round will be the last turn of the round, and then the round ends. Station cards appear in a random order, so it is possible to reveal eight cards without having five of either type, but it’s also possible that the first five cards are all of the same type. The game ends when the fourth round is completed.<br><br>
+        We draw a station card showing one of A, B, C, D, a Joker symbol, or (later) a Switch symbol. Then, we may draw a segment — but under what restrictions?
+        Drawing a segment is always optional. If you cannot or don’t want to draw, you may simply draw the next card.
+        Each segment must be a straight line, either horizontal or vertical (or optionally diagonal at 45° in the advanced version).
+        In a round, the first segment must start from the starting station of the current line and end at a station whose type matches the drawn card.
+        Every subsequent segment must start from one of the current line’s endpoints (except for switch cards) and end at a station whose type matches the card (except for Jokers).
+        Each segment must connect exactly two stations.
+        A segment cannot pass through a third station that is neither its start nor its end.
+        Segments cannot cross other segments in open areas — only at stations. A line cannot re-enter a station it has already visited (except with a switch card). However, you may connect to stations already used by other lines — these become busy junctions.
+        You cannot draw multiple segments between the same two stations (no parallel segments), even between different lines.
+        Station ID 30 (called Deák tér) acts as a Joker — any card may connect to it, as long as other rules are followed.<br><br>
+        When a round ends, calculate the points before moving to the next one:
+
+        PK = Number of districts this line passes through
+        PM = Number of stations it touches in the district where it has the most stations
+        PD = Number of times it crosses the Danube
+        FP = (PK × PM) + PD → this round’s score
+        Touching a railway station doesn’t score points just yet. When we connect a railway station with a segment, we mark it on the railway station scoring scale, which is worth increasingly more points: 0, 1, 2, 4, 6, 8, 11, 14, 17, 21, 25. You can imagine it as a slider that starts at zero and moves one step to the right each time we touch a station.
+        The next round proceeds similarly, but we shuffle the cards before starting a new round. After all four rounds, calculate the final score:
+
+        Rounds: sum of all FP values → Sum(FP) = (FP1 + FP2 + FP3 + FP4)
+        Railway stations: add the final PP (railway points from the track)
+        Junctions: We count how many stations are served by two different metro lines (CSP2), how many by three different lines (CSP3), and how many by all four metro lines (CSP4). Junctions with two metro lines are worth 2 points, those with three lines are worth 5 points, and those with four lines are worth 9 points (these are busy hubs, so they earn a bunch of junction points).
+        Final score = Sum(FP) + PP + (2 × CSP2) + (5 × CSP3) + (9 × CSP4).
+        That’s the end of the game.
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

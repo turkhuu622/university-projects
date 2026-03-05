@@ -1,0 +1,453 @@
+*, *::before, *::after {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.bold {
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    src: url(fonts/rubik.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+body {
+    font-family: "Rubik";
+    text-align: center;
+}
+#main-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -135px;
+    width: 600px;
+    height: 270px;
+    padding: 20px 50px;
+    border-radius: 20px;
+    background-color: #ECECEC;
+    color: #4C0E5F;
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#main-menu input[type="button"] {
+    font-family: "Rubik";
+    font-size: 1em;
+    margin: 8px auto;
+    padding: 8px 17px;
+    border-radius: 12px;
+}
+#main-menu h1 {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+#enter-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -135px;
+    width: 600px;
+    height: 270px;
+    padding: 20px 50px;
+    border-radius: 20px;
+    background-color: #ECECEC;
+    color: #4C0E5F;
+    font-size: 1.8em;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    gap: 20px;
+}
+#enter-name input[type="text"] {
+    padding: 5px;
+    font-family: "Rubik";
+    font-size: 0.8em;
+    color: #4C0E5F;
+    text-align: center;
+    border: 2px #4C0E5F solid;
+    width: 290px;
+}
+#enter-name input[type="button"] {
+    font-family: "Rubik";
+    background-color: #4C0E5F;
+    color: white;
+    border: 3px #4C0E5F solid;
+    height: 30px;
+    width: 80px;
+    font-size: 0.6em;
+    border-radius: 7px;
+}
+#start-game-button {
+    background-color: #4C0E5F;
+    color: white;
+    border: 3px #4C0E5F solid;
+    height: 50px;
+}
+#rules-button {
+    color: #4C0E5F;
+    border: 5px #4C0E5F solid;
+}
+#game-screen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 800px;
+    width: 1390px;
+    margin-left: -710px;
+    margin-top: -400px;
+    font-size: 1.1em;
+}
+.test {
+    border: 1px black solid;
+}
+#player {
+    position: absolute;
+    right: 0px;
+    height: 140px;
+    width: 275px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ECECEC;
+}
+#timer {
+    position: absolute;
+    right: 0px;
+    top: 155px;
+    height: 140px;
+    width: 275px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ECECEC;
+}
+#player {
+    padding-top: 20px;
+}
+#player :first-child {
+    position: absolute;
+    top: 25px;
+}
+#timer :first-child {
+    position: absolute;
+    top: 23px;
+}
+#elapsed-time {
+    position: absolute;
+    top: 53px;
+    font-size: 3em;
+}
+#card {
+    position: absolute;
+    right: 295px;
+    height: 295px;
+    width: 275px;
+    background-color: #ECECEC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 22px;
+}
+#current-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#current-card > img:nth-of-type(2) {
+    height: 59px;
+    position: absolute;
+    top: 89px;
+}
+#current-card > img:nth-of-type(1) {
+    height: 130px;
+    border-radius: 20px;
+    border: 4px black solid;
+}
+#side-platform-count, #central-platform-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7em;
+    position: absolute;
+    top: 200px;
+}
+#side-platform-count img, #central-platform-count img {
+    margin-top: 5px;
+    height: 42px;
+}
+#side-platform-count {
+    left: 30px;
+}
+#central-platform-count {
+    left: 90px;
+}
+#card > div:last-child {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8em;
+    gap: 5px;
+}
+#draw-card-button {
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    background-color: green;
+    border: 3px black solid;
+}
+#score-sheet {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 360px;
+    width: 570px;
+    background-color: #4C0E5F;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#score-sheet table {
+    border-spacing: 22px;
+    margin-top: -66px;
+    margin-left: -50px;
+}
+#score-sheet table img {
+    position: absolute;
+}
+#score-sheet table :nth-child(1) img {
+    height: 33px;
+    right: -12px;
+    top: 6px;
+}
+#score-sheet table :nth-child(6) img {
+    right: -6px;
+}
+#score-sheet table :nth-child(1) :nth-child(6) img {
+    height: 29px;
+    top: -1px;
+}
+#score-sheet table :nth-child(2) :nth-child(6) img {
+    height: 27px;
+    top: 2px;
+}
+#score-sheet table :nth-child(3) :nth-child(6) img {
+    height: 31px;
+    top: 4px;
+}
+#score-sheet td {
+    height: 45px;
+    width: 45px;
+    background-color: white;
+    font-size: 1.1em;
+    border-radius: 15px;
+    position: relative;
+}
+#score-sheet div {
+    display: flex;
+    color: white;
+}
+#symbols-1 {
+    position: absolute;
+    left: 90px;
+    top: 69px;
+    gap: 57px;
+}
+#symbols-2 {
+    position: absolute;
+    left: 90px;
+    top: 135px;
+    gap: 55px;
+}
+#symbols-3 {
+    position: absolute;
+    left: 90px;
+    top: 202px;
+    gap: 56px;
+}
+#symbols-4 {
+    position: absolute;
+    left: 122px;
+    top: 234px;
+    gap: 55.5px;
+}
+#symbols-5 {
+    flex-direction: column;
+    position: absolute;
+    left: 390px;
+    top: 35px;
+    gap: 45px;
+}
+#symbols-6 {
+    flex-direction: column;
+    position: absolute;
+    left: 454px;
+    top: 35px;
+    gap: 46px;
+}
+#symbols-7 {
+    flex-direction: column;
+    position: absolute;
+    left: 487px;
+    top: 69px;
+    gap: 45px;
+}
+#score-sheet > img:nth-of-type(1)  {
+    position: absolute;
+    height: 23px;
+    bottom: 41px;
+    left: 161px;
+}
+#score-sheet > img:nth-of-type(2) {
+    position: absolute;
+    height: 14px;
+    bottom: 64px;
+    right: 137px;
+}
+#score-sheet #train-score {
+    position: absolute;
+    bottom: 15px;
+    right: 120px;
+    border-spacing: 4px;
+}
+#score-sheet #train-score :nth-child(1) td {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 6px;
+    position: relative;
+}
+#score-sheet #train-score :nth-child(2) td {
+    height: 20px;
+    width: 20px;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    font-size: 0.7em;
+    position: relative;
+    top: -4px;
+}
+#total-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 80px;
+    background-color: white;
+    font-size: 1.1em;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 23px;
+    right: 21px;
+    font-size: 1.5em;
+}
+#board {
+    position: absolute;
+    left: 0px;
+    height: 800px;
+    width: 800px;
+    border-collapse: collapse;
+    background-image: url("images/board_background.png");
+    background-size: contain;
+}
+#board td {
+    position: relative;
+}
+#board img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+#board input {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    height: 77%;
+    width: 77%;
+    z-index: 1;
+}
+canvas {
+    position: absolute;
+    left: 0px;
+}
+#rounds {
+    position: absolute;
+    right: 0px;
+    bottom: 375px;
+    display: flex;
+    gap: 11px;
+    height: 115px;
+    width: 570px;
+    padding-top: 42px;
+    padding-left: 68px;
+    background-color: #ECECEC;
+}
+#rounds img {
+    height: 55px;
+}
+#rounds span:nth-child(1) {
+    position: absolute;
+    left: 135px;
+    top: 10px;
+    font-size: 1.3em;
+}
+#rounds span:nth-child(3) {
+    position: absolute;
+    top: 32px;
+    font-size: 0.8em;
+    right: 57px;
+}
+#rounds > div {
+    position: absolute;
+    top: 35px;
+    right: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8em;
+    gap: 5px;
+}
+#end-round-button {
+    height: 40px;
+    width: 40px;
+    background-color: rgb(208, 0, 0);
+    border-radius: 35px;
+    border: 3px black solid;
+}
+#rules {
+    display: none;
+    width: 800px;
+    text-align: left;
+    position: absolute;
+    left: 50%;
+    margin-left: -400px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+#rules h1 {
+    text-align: center;
+}
+#rules .back-button {
+    font-family: "Rubik";
+    background-color: #4C0E5F;
+    color: white;
+    border: 3px #4C0E5F solid;
+    height: 30px;
+    width: 80px;
+    font-size: 1em;
+    border-radius: 7px;
+}
